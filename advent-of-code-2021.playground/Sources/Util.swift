@@ -20,8 +20,41 @@ func parseInputToInts(fileName: String) -> [Int] {
     return inputInts
 }
 
-func executeAnswer(operation: ([Int]) -> Int, input: [Int]) {
+func parseInputToStringAndInt(fileName: String) -> [(String, Int)] {
+    guard let bundleURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
+        fatalError("failed to load bundleURL from fileName: \(fileName)")
+    }
+
+    guard let contentsOfFile = try? String(contentsOfFile: bundleURL.path, encoding: .utf8) else {
+        fatalError("failed to parse content of file: \(bundleURL.path)")
+    }
+    
+    var inputs = [(String, Int)]()
+    
+    for stringComponent in contentsOfFile.components(separatedBy: .newlines) {
+        guard !stringComponent.isEmpty else { continue }
+        
+        let splitUpStringArray = stringComponent.components(separatedBy: " ")
+        
+        let stringValue = splitUpStringArray[0]
+        guard let intValue = Int(splitUpStringArray[1]) else {
+            fatalError("failed to convert string to int: \(splitUpStringArray[1])")
+        }
+        
+        inputs.append((stringValue, intValue))
+    }
+    
+    return inputs
+}
+
+func executeAnswer(dayValue: String, operation: ([Int]) -> Int, input: [Int]) {
     let startTime = Date()
     
-    print("Answer: \(operation(input)) : \(Date().timeIntervalSince(startTime))")
+    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime))")
+}
+
+func executeAnswer(dayValue: String, operation: ([(String, Int)]) -> Int, input: [(String, Int)]) {
+    let startTime = Date()
+    
+    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime))")
 }

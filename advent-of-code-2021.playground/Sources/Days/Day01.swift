@@ -1,10 +1,10 @@
 import Foundation
 
 public func day1() {
-    let day1Input = parseInputToInts(fileName: "day-1")
+    let input = parseInputToInts(fileName: "day-1")
     
-    executeAnswer(operation: getDay1A(inputs:), input: day1Input)
-    executeAnswer(operation: getDay1B(inputs:), input: day1Input)
+    executeAnswer(dayValue: "Day1A", operation: getDay1A(inputs:), input: input)
+    executeAnswer(dayValue: "Day1B", operation: getDay1B(inputs:), input: input)
 }
 
 // Simple sum of values that are larger than previous value

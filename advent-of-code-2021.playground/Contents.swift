@@ -2,3 +2,4 @@
 // Logan Johnson
 
 day1()
+day2()
