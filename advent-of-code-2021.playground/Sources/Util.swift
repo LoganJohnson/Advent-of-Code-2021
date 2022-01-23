@@ -1,7 +1,7 @@
 import Foundation
 
-// Assumes input is a single string on each line
-func parseInputToStrings(fileName: String) -> [String] {
+
+ func getFileContents(fileName: String) -> String {
     guard let bundleURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
         fatalError("failed to load bundleURL from fileName: \(fileName)")
     }
@@ -9,6 +9,13 @@ func parseInputToStrings(fileName: String) -> [String] {
     guard let contentsOfFile = try? String(contentsOfFile: bundleURL.path, encoding: .utf8) else {
         fatalError("failed to parse content of file: \(bundleURL.path)")
     }
+    
+    return contentsOfFile
+}
+
+// Assumes input is a single string on each line
+func parseInputToStrings(fileName: String) -> [String] {
+    let contentsOfFile = getFileContents(fileName: fileName)
     
     var stringInputs = [String]()
     
@@ -23,13 +30,7 @@ func parseInputToStrings(fileName: String) -> [String] {
 
 // Assumes input is a single int on each line
 func parseInputToInts(fileName: String) -> [Int] {
-    guard let bundleURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
-        fatalError("failed to load bundleURL from fileName: \(fileName)")
-    }
-
-    guard let contentsOfFile = try? String(contentsOfFile: bundleURL.path, encoding: .utf8) else {
-        fatalError("failed to parse content of file: \(bundleURL.path)")
-    }
+    let contentsOfFile = getFileContents(fileName: fileName)
     
     var inputInts = [Int]()
     
@@ -42,13 +43,7 @@ func parseInputToInts(fileName: String) -> [Int] {
 }
 
 func parseInputToStringAndInt(fileName: String) -> [(String, Int)] {
-    guard let bundleURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
-        fatalError("failed to load bundleURL from fileName: \(fileName)")
-    }
-
-    guard let contentsOfFile = try? String(contentsOfFile: bundleURL.path, encoding: .utf8) else {
-        fatalError("failed to parse content of file: \(bundleURL.path)")
-    }
+    let contentsOfFile = getFileContents(fileName: fileName)
     
     var inputs = [(String, Int)]()
     
@@ -71,19 +66,25 @@ func parseInputToStringAndInt(fileName: String) -> [(String, Int)] {
 func executeAnswer(dayValue: String, operation: ([Int]) -> Int, input: [Int]) {
     let startTime = Date()
     
-    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime))")
+    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
 }
 
 func executeAnswer(dayValue: String, operation: ([String]) -> Int, input: [String]) {
     let startTime = Date()
     
-    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime))")
+    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
 }
 
 func executeAnswer(dayValue: String, operation: ([(String, Int)]) -> Int, input: [(String, Int)]) {
     let startTime = Date()
     
-    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime))")
+    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
+}
+
+func executeAnswer(dayValue: String, operation: ([Int], [[[Int]]]) -> Int, input1: [Int], input2: [[[Int]]]) {
+    let startTime = Date()
+    
+    print("\(dayValue) : \(operation(input1, input2)) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
 }
 
 extension StringProtocol {
