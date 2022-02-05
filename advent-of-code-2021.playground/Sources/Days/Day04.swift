@@ -5,7 +5,6 @@ public func day4() {
     
     let startTime = Date()
     let answer4A = getDay4A(callNumbers: callNumbers, boards: boards)
-    
     print("Day4A : \(answer4A) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
     
     let day4BStart = Date()
@@ -15,7 +14,7 @@ public func day4() {
 
 // https://adventofcode.com/2021/day/4
 // determine the board that wins first, answer is (winning number * sum of uncalled numbers on board)
-func getDay4A(callNumbers: [Int], boards: [[[Int]]]) -> Int {
+func getDay4A(callNumbers: [Int], boards: [[Set<Int>]]) -> Int {
     let (winningNumber, calledNumbers, winningBoard) = getWinningBoard(callNumbers: callNumbers, boards: boards)
     
     let uncalledNumberSum = getSumOfUncalledNumbers(calledNumbers: calledNumbers, board: winningBoard)
@@ -25,7 +24,7 @@ func getDay4A(callNumbers: [Int], boards: [[[Int]]]) -> Int {
 
 // https://adventofcode.com/2021/day/4#part2
 // determine the board that wins last, answer is (winning number * sum of uncalled numbers on board)
-func getDay4B(callNumbers: [Int], boards: [[[Int]]]) -> Int {
+func getDay4B(callNumbers: [Int], boards: [[Set<Int>]]) -> Int {
     let (winningNumber, calledNumbers, winningBoard) = getLastWinningBoard(callNumbers: callNumbers, boards: boards)
     
     let uncalledNumberSum = getSumOfUncalledNumbers(calledNumbers: calledNumbers, board: winningBoard)
@@ -33,11 +32,11 @@ func getDay4B(callNumbers: [Int], boards: [[[Int]]]) -> Int {
     return winningNumber * uncalledNumberSum
 }
 
-private func parseBingoInput(fileName: String) -> ([Int], [[[Int]]])  {
+private func parseBingoInput(fileName: String) -> ([Int], [[Set<Int>]])  {
     let contentsOfFile = getFileContents(fileName: fileName)
     
     var callNumbers = [Int]()
-    var boards = [[[Int]]]()
+    var boardRows = [[Set<Int>]]()
     
     var inProgressBoardRows = [String]()
     
@@ -52,7 +51,7 @@ private func parseBingoInput(fileName: String) -> ([Int], [[[Int]]])  {
         } else {
             // blank line with in progress board rows triggers a board create
             if stringComponent.isEmpty && !inProgressBoardRows.isEmpty {
-                boards.append(createBoard(stringRows: inProgressBoardRows))
+                boardRows.append(createBoardRows(stringRows: inProgressBoardRows))
                 inProgressBoardRows.removeAll()
             } else if !stringComponent.isEmpty {
                 inProgressBoardRows.append(stringComponent.trimmingCharacters(in: CharacterSet.whitespaces))
@@ -62,17 +61,18 @@ private func parseBingoInput(fileName: String) -> ([Int], [[[Int]]])  {
     
     // make sure to create the last board, there is not blank line to trigger this one
     if !inProgressBoardRows.isEmpty {
-        boards.append(createBoard(stringRows: inProgressBoardRows))
+        boardRows.append(createBoardRows(stringRows: inProgressBoardRows))
     }
     
-    return (callNumbers, boards)
+    return (callNumbers, boardRows)
 }
 
-private func createBoard(stringRows: [String]) -> [[Int]] {
-    var board = [[Int]]()
-    
+// Converts an array of whitespace separated string numbers into an array of Set<Int>
+private func createBoardRows(stringRows: [String]) -> [Set<Int>] {
+    // need to create arrays first to be able to build vertical row sets below
+    var horizontalBoardArrays = [[Int]]()
     for stringRow in stringRows {
-        var boardRow = [Int]()
+        var row = [Int]()
         for stringVal in stringRow.components(separatedBy: .whitespaces) {
             if stringVal.isEmpty { continue }
             
@@ -80,19 +80,31 @@ private func createBoard(stringRows: [String]) -> [[Int]] {
                 fatalError("createBoard failed to cast to int: \(stringVal)")
             }
             
-            boardRow.append(intValue)
+            row.append(intValue)
         }
-        board.append(boardRow)
+        horizontalBoardArrays.append(row)
     }
     
-    return board
+    var boardSets = [Set<Int>]()
+    
+    // build horizontal row sets
+    for horizontalBoard in horizontalBoardArrays {
+        boardSets.append(Set(horizontalBoard))
+    }
+    
+    // build vertical row sets
+    for index in 0..<horizontalBoardArrays.count {
+        boardSets.append(Set(horizontalBoardArrays.map({ $0[index] })))
+    }
+    
+    return boardSets
 }
 
-private func getWinningBoard(callNumbers: [Int], boards: [[[Int]]]) -> (Int, [Int], [[Int]]) {
-    var calledNumbers = [Int]()
+private func getWinningBoard(callNumbers: [Int], boards: [[Set<Int>]]) -> (Int, Set<Int>, [Set<Int>]) {
+    var calledNumbers = Set<Int>()
     
     for callNumber in callNumbers {
-        calledNumbers.append(callNumber)
+        calledNumbers.insert(callNumber)
         for board in boards {
             if boardHasWon(calledNumbers: calledNumbers, board: board) {
                 return (callNumber, calledNumbers, board)
@@ -100,12 +112,12 @@ private func getWinningBoard(callNumbers: [Int], boards: [[[Int]]]) -> (Int, [In
         }
     }
     
-    fatalError("getWinningInfo, should have found a winning board")
+    fatalError("\(#function), should have found a winning board")
 }
 
-private func getLastWinningBoard(callNumbers: [Int], boards: [[[Int]]]) -> (Int, [Int], [[Int]]) {
-    var lastWinningBoard = [[Int]]()
-    var lastWinningCalledNumbers = [Int]()
+private func getLastWinningBoard(callNumbers: [Int], boards: [[Set<Int>]]) -> (Int, Set<Int>, [Set<Int>]) {
+    var lastWinningBoard = [Set<Int>]()
+    var lastWinningCalledNumbers = Set<Int>()
     var lastWinningNumber = 0
     
     for board in boards {
@@ -122,26 +134,12 @@ private func getLastWinningBoard(callNumbers: [Int], boards: [[[Int]]]) -> (Int,
     return (lastWinningNumber, lastWinningCalledNumbers, lastWinningBoard)
 }
 
-private func boardHasWon(calledNumbers: [Int], board: [[Int]]) -> Bool {
+private func boardHasWon(calledNumbers: Set<Int>, board: [Set<Int>]) -> Bool {
     // short circuit early checks
-    guard calledNumbers.count > 5 else { return false }
+    guard calledNumbers.count >= 5 else { return false }
     
-    // check horizontal rows
     for boardRow in board {
-        if allNumbersCalledInRow(calledNumbers: calledNumbers, boardRowNumbers: boardRow) {
-            return true
-        }
-    }
-    
-    // build vertical rows
-    var verticalRows = [[Int]]()
-    for index in 0..<board.count {
-        verticalRows.append(board.map({ $0[index] }))
-    }
-    
-    // check vertical rows
-    for verticalRow in verticalRows {
-        if allNumbersCalledInRow(calledNumbers: calledNumbers, boardRowNumbers: verticalRow) {
+        if boardRow.isSubset(of: calledNumbers) {
             return true
         }
     }
@@ -149,27 +147,16 @@ private func boardHasWon(calledNumbers: [Int], board: [[Int]]) -> Bool {
     return false
 }
 
-private func allNumbersCalledInRow(calledNumbers: [Int], boardRowNumbers: [Int]) -> Bool {
-    for boardRowNumber in boardRowNumbers {
-        if !calledNumbers.contains(boardRowNumber) {
-            // At least one number has not been called yet
-            return false
-        }
-    }
-    
-    return true
-}
-
-private func getSumOfUncalledNumbers(calledNumbers: [Int], board: [[Int]]) -> Int {
+private func getSumOfUncalledNumbers(calledNumbers: Set<Int>, board: [Set<Int>]) -> Int {
     var uncalledNumberSum = 0
 
     for boardRow in board {
-        for rowNumber in boardRow {
-            if !calledNumbers.contains(rowNumber) {
-                uncalledNumberSum += rowNumber
-            }
+        for rowNumber in boardRow where !calledNumbers.contains(rowNumber) {
+            uncalledNumberSum += rowNumber
         }
     }
     
-    return uncalledNumberSum
+    // divide by 2 because "board" contains both vertical and horizontal rows
+    // (all numbers are double represented in the board array of sets)
+    return uncalledNumberSum / 2
 }
