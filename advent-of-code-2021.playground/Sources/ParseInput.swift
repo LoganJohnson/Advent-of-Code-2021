@@ -1,6 +1,6 @@
 import Foundation
 
-func getFileContents(fileName: String) -> String {
+internal func getFileContents(fileName: String) -> String {
     guard let bundleURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
         fatalError("failed to load bundleURL from fileName: \(fileName)")
     }
@@ -13,7 +13,7 @@ func getFileContents(fileName: String) -> String {
 }
 
 // Assumes input is a single string on each line
-func parseInputToStrings(fileName: String) -> [String] {
+internal func parseInputToStrings(fileName: String) -> [String] {
     let contentsOfFile = getFileContents(fileName: fileName)
     
     var stringInputs = [String]()

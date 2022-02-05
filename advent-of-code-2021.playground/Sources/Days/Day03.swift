@@ -1,10 +1,10 @@
 import Foundation
 
-public func performDay3A() -> Int {
+internal func performDay3A() -> Int {
     return solveDay3A(inputs: parseInputToStrings(fileName: "day-3"))
 }
 
-public func performDay3B() -> Int {
+internal func performDay3B() -> Int {
     return solveDay3B(inputs: parseInputToStrings(fileName: "day-3"))
 }
 
