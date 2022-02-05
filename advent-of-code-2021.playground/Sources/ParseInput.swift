@@ -1,11 +1,10 @@
 import Foundation
 
-
- func getFileContents(fileName: String) -> String {
+func getFileContents(fileName: String) -> String {
     guard let bundleURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
         fatalError("failed to load bundleURL from fileName: \(fileName)")
     }
-
+    
     guard let contentsOfFile = try? String(contentsOfFile: bundleURL.path, encoding: .utf8) else {
         fatalError("failed to parse content of file: \(bundleURL.path)")
     }
@@ -61,38 +60,4 @@ func parseInputToStringAndInt(fileName: String) -> [(String, Int)] {
     }
     
     return inputs
-}
-
-func executeAnswer(dayValue: String, operation: ([Int]) -> Int, input: [Int]) {
-    let startTime = Date()
-    
-    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
-}
-
-func executeAnswer(dayValue: String, operation: ([String]) -> Int, input: [String]) {
-    let startTime = Date()
-    
-    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
-}
-
-func executeAnswer(dayValue: String, operation: ([(String, Int)]) -> Int, input: [(String, Int)]) {
-    let startTime = Date()
-    
-    print("\(dayValue) : \(operation(input)) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
-}
-
-func executeAnswer(dayValue: String, operation: ([Int], [[[Int]]]) -> Int, input1: [Int], input2: [[[Int]]]) {
-    let startTime = Date()
-    
-    print("\(dayValue) : \(operation(input1, input2)) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
-}
-
-extension StringProtocol {
-    subscript(offset: Int) -> Character {
-        self[index(startIndex, offsetBy: offset)]
-    }
-}
-
-func binaryToInt(binaryString: String) -> Int {
-  return Int(strtoul(binaryString, nil, 2))
 }

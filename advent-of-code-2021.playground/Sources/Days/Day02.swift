@@ -1,14 +1,15 @@
 import Foundation
 
-public func day2() {
-    let input = parseInputToStringAndInt(fileName: "day-2")
-    
-    executeAnswer(dayValue: "Day2A", operation: getDay2A(inputs:), input: input)
-    executeAnswer(dayValue: "Day2B", operation: getDay2B(inputs:), input: input)
+public func performDay2A() -> Int {
+    return solveDay2A(inputs: parseInputToStringAndInt(fileName: "day-2"))
+}
+
+public func performDay2B() -> Int {
+    return solveDay2B(inputs: parseInputToStringAndInt(fileName: "day-2"))
 }
 
 // Basic position increase/decrease based on commands
-func getDay2A(inputs: [(String, Int)]) -> Int {
+private func solveDay2A(inputs: [(String, Int)]) -> Int {
     var horizontalPosition = 0
     var verticalPosition = 0
     
@@ -29,7 +30,7 @@ func getDay2A(inputs: [(String, Int)]) -> Int {
 }
 
 // Position increase decrease with up/down controlling "aim" which only affects vertical postion when moving forward
-func getDay2B(inputs: [(String, Int)]) -> Int {
+private func solveDay2B(inputs: [(String, Int)]) -> Int {
     var horizontalPosition = 0
     var verticalPosition = 0
     var aim = 0

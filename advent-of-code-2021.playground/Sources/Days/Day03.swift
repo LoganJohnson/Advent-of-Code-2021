@@ -1,13 +1,14 @@
 import Foundation
 
-public func day3() {
-    let inputs = parseInputToStrings(fileName: "day-3")
-    
-    executeAnswer(dayValue: "Day3A", operation: getDay3A(inputs:), input: inputs)
-    executeAnswer(dayValue: "Day3B", operation: getDay3B(inputs:), input: inputs)
+public func performDay3A() -> Int {
+    return solveDay3A(inputs: parseInputToStrings(fileName: "day-3"))
 }
 
-func getDay3A(inputs: [String]) -> Int {
+public func performDay3B() -> Int {
+    return solveDay3B(inputs: parseInputToStrings(fileName: "day-3"))
+}
+
+private func solveDay3A(inputs: [String]) -> Int {
     if inputs.isEmpty {
         fatalError("getDay3A inputs are empty")
     }
@@ -35,13 +36,13 @@ func getDay3A(inputs: [String]) -> Int {
         index += 1
     }
     
-    let gammaDecimal = binaryToInt(binaryString: gammaRate)
-    let epsilonDecimal = binaryToInt(binaryString: epsilonRate)
+    let gammaDecimal = gammaRate.convertFromBinaryStringToInt
+    let epsilonDecimal = epsilonRate.convertFromBinaryStringToInt
     
     return gammaDecimal * epsilonDecimal
 }
 
-func getDay3B(inputs: [String]) -> Int {
+private func solveDay3B(inputs: [String]) -> Int {
     if inputs.isEmpty {
         fatalError("getDay3B inputs are empty")
     }
@@ -53,8 +54,8 @@ func getDay3B(inputs: [String]) -> Int {
                                                      inputs: inputs,
                                                      keepMostCommon: false)
     
-    let oxygenGeneratorDecimal = binaryToInt(binaryString: oxygenGeneratorRating)
-    let co2ScrubberDecimal = binaryToInt(binaryString: co2ScrubberRating)
+    let oxygenGeneratorDecimal = oxygenGeneratorRating.convertFromBinaryStringToInt
+    let co2ScrubberDecimal = co2ScrubberRating.convertFromBinaryStringToInt
     
     return oxygenGeneratorDecimal * co2ScrubberDecimal
 }

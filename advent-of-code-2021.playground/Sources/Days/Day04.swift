@@ -1,20 +1,20 @@
 import Foundation
 
-public func day4() {
+public func performDay4A() -> Int {
     let (callNumbers, boards) = parseBingoInput(fileName: "day-4")
     
-    let startTime = Date()
-    let answer4A = getDay4A(callNumbers: callNumbers, boards: boards)
-    print("Day4A : \(answer4A) : \(Date().timeIntervalSince(startTime).toMilliseconds)")
+    return getDay4A(callNumbers: callNumbers, boards: boards)
+}
+
+public func performDay4B() -> Int {
+    let (callNumbers, boards) = parseBingoInput(fileName: "day-4")
     
-    let day4BStart = Date()
-    let answer4B = getDay4B(callNumbers: callNumbers, boards: boards)
-    print("Day4B : \(answer4B) : \(Date().timeIntervalSince(day4BStart).toMilliseconds)")
+    return getDay4B(callNumbers: callNumbers, boards: boards)
 }
 
 // https://adventofcode.com/2021/day/4
 // determine the board that wins first, answer is (winning number * sum of uncalled numbers on board)
-func getDay4A(callNumbers: [Int], boards: [[Set<Int>]]) -> Int {
+private func getDay4A(callNumbers: [Int], boards: [[Set<Int>]]) -> Int {
     let (winningNumber, calledNumbers, winningBoard) = getWinningBoard(callNumbers: callNumbers, boards: boards)
     
     let uncalledNumberSum = getSumOfUncalledNumbers(calledNumbers: calledNumbers, board: winningBoard)
@@ -24,7 +24,7 @@ func getDay4A(callNumbers: [Int], boards: [[Set<Int>]]) -> Int {
 
 // https://adventofcode.com/2021/day/4#part2
 // determine the board that wins last, answer is (winning number * sum of uncalled numbers on board)
-func getDay4B(callNumbers: [Int], boards: [[Set<Int>]]) -> Int {
+private func getDay4B(callNumbers: [Int], boards: [[Set<Int>]]) -> Int {
     let (winningNumber, calledNumbers, winningBoard) = getLastWinningBoard(callNumbers: callNumbers, boards: boards)
     
     let uncalledNumberSum = getSumOfUncalledNumbers(calledNumbers: calledNumbers, board: winningBoard)

@@ -1,14 +1,15 @@
 import Foundation
 
-public func day1() {
-    let input = parseInputToInts(fileName: "day-1")
-    
-    executeAnswer(dayValue: "Day1A", operation: getDay1A(inputs:), input: input)
-    executeAnswer(dayValue: "Day1B", operation: getDay1B(inputs:), input: input)
+public func performDay1A() -> Int {
+    return solveDay1A(inputs: parseInputToInts(fileName: "day-1"))
+}
+
+public func performDay1B() -> Int {
+    return solveDay1B(inputs: parseInputToInts(fileName: "day-1"))
 }
 
 // Simple sum of values that are larger than previous value
-func getDay1A(inputs: [Int]) -> Int {
+private func solveDay1A(inputs: [Int]) -> Int {
     var increaseCount = 0
     
     for (index, _) in inputs.enumerated() {
@@ -23,7 +24,7 @@ func getDay1A(inputs: [Int]) -> Int {
 }
 
 // Sum of 3 day average sliding windows that increase compared to previous
-func getDay1B(inputs: [Int]) -> Int {
+private func solveDay1B(inputs: [Int]) -> Int {
     var increaseCount = 0
     
     for (index, _) in inputs.enumerated() {
