@@ -8,7 +8,19 @@ internal func performDay5A() -> Int {
     solveDay5A(ventLineDetails: parseVentDetails(fileName: "day-5"))
 }
 
+internal func performDay5B() -> Int {
+    solveDay5B(ventLineDetails: parseVentDetails(fileName: "day-5"))
+}
+
 private func solveDay5A(ventLineDetails: [VentLineDetail]) -> Int {
+    getHeavyVentCount(ventLineDetails: ventLineDetails, countDiagonals: false)
+}
+
+private func solveDay5B(ventLineDetails: [VentLineDetail]) -> Int {
+    getHeavyVentCount(ventLineDetails: ventLineDetails, countDiagonals: true)
+}
+
+private func getHeavyVentCount(ventLineDetails: [VentLineDetail], countDiagonals: Bool) -> Int {
     var ventDicitonary = [String: Int]()
     
     for detail in ventLineDetails {
@@ -19,11 +31,8 @@ private func solveDay5A(ventLineDetails: [VentLineDetail]) -> Int {
             
             for yCoord in minY ... maxY {
                 let coordinateString = "\(detail.x1)-\(yCoord)"
-                if let ventCount = ventDicitonary[coordinateString] {
-                    ventDicitonary[coordinateString] = ventCount + 1
-                } else {
-                    ventDicitonary[coordinateString] = 1
-                }
+                let currentValue = ventDicitonary[coordinateString, default: 0]
+                ventDicitonary[coordinateString] = currentValue + 1
             }
         } else if detail.y1 == detail.y2 {
             // handle horizontal vent lines
@@ -32,14 +41,27 @@ private func solveDay5A(ventLineDetails: [VentLineDetail]) -> Int {
             
             for xCoord in minX ... maxX {
                 let coordinateString = "\(xCoord)-\(detail.y1)"
-                if let ventCount = ventDicitonary[coordinateString] {
-                    ventDicitonary[coordinateString] = ventCount + 1
-                } else {
-                    ventDicitonary[coordinateString] = 1
-                }
+                let currentValue = ventDicitonary[coordinateString, default: 0]
+                ventDicitonary[coordinateString] = currentValue + 1
             }
-        } else {
-            // not a vertical or horizontal vent line
+        } else if countDiagonals {
+            // handle diagonal vent lines (assumes 45 degree angle)
+            var xCoord = detail.x1
+            var yCoord = detail.y1
+            
+            let shouldIncrementX = detail.x1 < detail.x2
+            let shouldIncrementY = detail.y1 < detail.y2
+            
+            while true {
+                let coordinateString = "\(xCoord)-\(yCoord)"
+                let currentValue = ventDicitonary[coordinateString, default: 0]
+                ventDicitonary[coordinateString] = currentValue + 1
+                
+                if xCoord == detail.x2 { break }
+                
+                xCoord += shouldIncrementX ? 1 : -1
+                yCoord += shouldIncrementY ? 1 : -1
+            }
         }
     }
     
