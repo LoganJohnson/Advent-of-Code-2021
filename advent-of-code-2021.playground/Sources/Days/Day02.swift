@@ -1,11 +1,11 @@
 import Foundation
 
-internal func performDay2A() -> Int {
-    return solveDay2A(inputs: parseInputToStringAndInt(fileName: "day-2"))
+internal func performDay2A(fileName: String) -> Int {
+    return solveDay2A(inputs: parseInputToStringAndInt(fileName: fileName))
 }
 
-internal func performDay2B() -> Int {
-    return solveDay2B(inputs: parseInputToStringAndInt(fileName: "day-2"))
+internal func performDay2B(fileName: String) -> Int {
+    return solveDay2B(inputs: parseInputToStringAndInt(fileName: fileName))
 }
 
 // Basic position increase/decrease based on commands

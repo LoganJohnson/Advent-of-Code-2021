@@ -1,11 +1,11 @@
 import Foundation
 
-internal func performDay1A() -> Int {
-    return solveDay1A(inputs: parseInputToInts(fileName: "day-1"))
+internal func performDay1A(fileName: String) -> Int {
+    return solveDay1A(inputs: parseInputToInts(fileName: fileName))
 }
 
-internal func performDay1B() -> Int {
-    return solveDay1B(inputs: parseInputToInts(fileName: "day-1"))
+internal func performDay1B(fileName: String) -> Int {
+    return solveDay1B(inputs: parseInputToInts(fileName: fileName))
 }
 
 // Simple sum of values that are larger than previous value

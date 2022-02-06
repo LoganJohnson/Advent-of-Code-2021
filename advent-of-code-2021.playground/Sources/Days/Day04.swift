@@ -1,13 +1,13 @@
 import Foundation
 
-internal func performDay4A() -> Int {
-    let (callNumbers, boards) = parseBingoInput(fileName: "day-4")
+internal func performDay4A(fileName: String) -> Int {
+    let (callNumbers, boards) = parseBingoInput(fileName: fileName)
     
     return getDay4A(callNumbers: callNumbers, boards: boards)
 }
 
-internal func performDay4B() -> Int {
-    let (callNumbers, boards) = parseBingoInput(fileName: "day-4")
+internal func performDay4B(fileName: String) -> Int {
+    let (callNumbers, boards) = parseBingoInput(fileName: fileName)
     
     return getDay4B(callNumbers: callNumbers, boards: boards)
 }

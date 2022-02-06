@@ -4,12 +4,12 @@ struct VentLineDetail {
     var x1, y1, x2, y2: Int
 }
 
-internal func performDay5A() -> Int {
-    solveDay5A(ventLineDetails: parseVentDetails(fileName: "day-5"))
+internal func performDay5A(fileName: String) -> Int {
+    solveDay5A(ventLineDetails: parseVentDetails(fileName: fileName))
 }
 
-internal func performDay5B() -> Int {
-    solveDay5B(ventLineDetails: parseVentDetails(fileName: "day-5"))
+internal func performDay5B(fileName: String) -> Int {
+    solveDay5B(ventLineDetails: parseVentDetails(fileName: fileName))
 }
 
 private func solveDay5A(ventLineDetails: [VentLineDetail]) -> Int {
