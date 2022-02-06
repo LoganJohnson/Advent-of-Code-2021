@@ -30,9 +30,7 @@ private func getHeavyVentCount(ventLineDetails: [VentLineDetail], countDiagonals
             let maxY = max(detail.y1, detail.y2)
             
             for yCoord in minY ... maxY {
-                let coordinateString = "\(detail.x1)-\(yCoord)"
-                let currentValue = ventDicitonary[coordinateString, default: 0]
-                ventDicitonary[coordinateString] = currentValue + 1
+                ventDicitonary["\(detail.x1)-\(yCoord)", default: 0] += 1
             }
         } else if detail.y1 == detail.y2 {
             // handle horizontal vent lines
@@ -40,9 +38,7 @@ private func getHeavyVentCount(ventLineDetails: [VentLineDetail], countDiagonals
             let maxX = max(detail.x1, detail.x2)
             
             for xCoord in minX ... maxX {
-                let coordinateString = "\(xCoord)-\(detail.y1)"
-                let currentValue = ventDicitonary[coordinateString, default: 0]
-                ventDicitonary[coordinateString] = currentValue + 1
+                ventDicitonary["\(xCoord)-\(detail.y1)", default: 0] += 1
             }
         } else if countDiagonals {
             // handle diagonal vent lines (assumes 45 degree angle)
@@ -53,9 +49,7 @@ private func getHeavyVentCount(ventLineDetails: [VentLineDetail], countDiagonals
             let shouldIncrementY = detail.y1 < detail.y2
             
             while true {
-                let coordinateString = "\(xCoord)-\(yCoord)"
-                let currentValue = ventDicitonary[coordinateString, default: 0]
-                ventDicitonary[coordinateString] = currentValue + 1
+                ventDicitonary["\(xCoord)-\(yCoord)", default: 0] += 1
                 
                 if xCoord == detail.x2 { break }
                 
