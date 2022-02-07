@@ -4,10 +4,12 @@ struct VentLineDetail {
     var x1, y1, x2, y2: Int
 }
 
+// https://adventofcode.com/2021/day/5
 internal func performDay5A(fileName: String) -> Int {
     solveDay5A(ventLineDetails: parseVentDetails(fileName: fileName))
 }
 
+// https://adventofcode.com/2021/day/5#part2
 internal func performDay5B(fileName: String) -> Int {
     solveDay5B(ventLineDetails: parseVentDetails(fileName: fileName))
 }
