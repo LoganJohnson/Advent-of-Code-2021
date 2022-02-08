@@ -2,12 +2,12 @@ import Foundation
 
 // https://adventofcode.com/2021/day/6
 internal func performDay6A(fileName: String) -> Int {
-    solveDay6(totalDays: 80, fishBirthCountdowns: parseFishBirthCountdowns(fileName: fileName))
+    solveDay6(totalDays: 80, fishBirthCountdowns: parseInputCommaSeparatedInts(fileName: fileName))
 }
 
 // https://adventofcode.com/2021/day/6#part2
 internal func performDay6B(fileName: String) -> Int {
-    solveDay6(totalDays: 256, fishBirthCountdowns: parseFishBirthCountdowns(fileName: fileName))
+    solveDay6(totalDays: 256, fishBirthCountdowns: parseInputCommaSeparatedInts(fileName: fileName))
 }
 
 private func solveDay6(totalDays: Int, fishBirthCountdowns: [Int]) -> Int {
@@ -54,19 +54,4 @@ private func getDecendantCount(dayOfBirth: Int, solvedDays: [Int: Int]) -> (Int,
         
         return (decendantCount, secondSolvedDays)
     }
-}
-
-private func parseFishBirthCountdowns(fileName: String) -> [Int] {
-    var fishBirthCountdowns = [Int]()
-    
-    let stringEntries = getFileContents(fileName: fileName).components(separatedBy: ",")
-    
-    for stringEntry in stringEntries {
-        guard let intVal = Int(stringEntry.trimmingCharacters(in: .whitespacesAndNewlines)) else {
-            fatalError("\(#function): failed to cast to Int: \(stringEntry)")
-        }
-        fishBirthCountdowns.append(intVal)
-    }
-    
-    return fishBirthCountdowns
 }

@@ -61,3 +61,18 @@ func parseInputToStringAndInt(fileName: String) -> [(String, Int)] {
     
     return inputs
 }
+
+func parseInputCommaSeparatedInts(fileName: String) -> [Int] {
+    var fishBirthCountdowns = [Int]()
+    
+    let stringEntries = getFileContents(fileName: fileName).components(separatedBy: ",")
+    
+    for stringEntry in stringEntries {
+        guard let intVal = Int(stringEntry.trimmingCharacters(in: .whitespacesAndNewlines)) else {
+            fatalError("\(#function): failed to cast to Int: \(stringEntry)")
+        }
+        fishBirthCountdowns.append(intVal)
+    }
+    
+    return fishBirthCountdowns
+}
