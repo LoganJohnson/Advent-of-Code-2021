@@ -76,3 +76,25 @@ func parseInputCommaSeparatedInts(fileName: String) -> [Int] {
     
     return fishBirthCountdowns
 }
+
+func parseIntGrid(fileName: String) -> [[Int]] {
+    var intGrid = [[Int]]()
+    
+    let stringEntries = getFileContents(fileName: fileName).components(separatedBy: .newlines)
+    
+    for stringEntry in stringEntries {
+        if stringEntry.isEmpty { continue }
+        var gridRow = [Int]()
+        
+        for char in stringEntry {
+            guard let intVal = Int(String(char)) else {
+                fatalError("\(#function), Failed to parse char: \(char)")
+            }
+            gridRow.append(intVal)
+        }
+        
+        intGrid.append(gridRow)
+    }
+    
+    return intGrid
+}

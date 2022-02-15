@@ -11,6 +11,7 @@ public enum Day: String, CaseIterable {
     case day8A, day8B
     case day9A, day9B
     case day10A, day10B
+    case day11A, day11B
     
     var getAnswer: Int {
         switch self {
@@ -34,6 +35,8 @@ public enum Day: String, CaseIterable {
             case .day9B: return performDay9B(fileName: fileNameForDay)
             case .day10A: return performDay10A(fileName: fileNameForDay)
             case .day10B: return performDay10B(fileName: fileNameForDay)
+            case .day11A: return performDay11A(fileName: fileNameForDay)
+            case .day11B: return performDay11B(fileName: fileNameForDay)
         }
     }
     
@@ -49,6 +52,7 @@ public enum Day: String, CaseIterable {
             case .day8A, .day8B: return "day-8"
             case .day9A, .day9B: return "day-9"
             case .day10A, .day10B: return "day-10"
+            case .day11A, .day11B: return "day-11"
         }
     }
 }
