@@ -1,52 +1,58 @@
 import Foundation
 
 internal func performDay12A(fileName: String) -> Int {
-    return solveDay12A(caveLinks: parseCaveLinks(fileName: fileName))
+    return solveDay12A(caveDict: parseCaveDict(fileName: fileName))
 }
 
-private func solveDay12A(caveLinks: [CaveLink]) -> Int {
-    let allSplunks = splunk(currentCavePath: [Cave(name: "start")], caveLinks: caveLinks)
-    
-//    for splunk in allSplunks {
-//        print(splunk.map({ $0.name }).joined(separator: ","))
-//    }
+internal func performDay12B(fileName: String) -> Int {
+    return solveDay12B(caveDict: parseCaveDict(fileName: fileName))
+}
+
+private func solveDay12A(caveDict: [Cave: Set<Cave>]) -> Int {
+    let allSplunks = splunkA(currentCavePath: CavePath(path: [Cave(name: "start")], hasVisitedASmallTwice: false),
+                             caveDict: caveDict)
+
+    return allSplunks.count
+}
+
+private func solveDay12B(caveDict: [Cave: Set<Cave>]) -> Int {
+    let allSplunks = splunkB(currentCavePath: CavePath(path: [Cave(name: "start")], hasVisitedASmallTwice: false),
+                             caveDict: caveDict)
     
     return allSplunks.count
 }
 
-private struct CaveLink {
-    let origin: Cave
-    let destination: Cave
+private struct CavePath {
+    var path: [Cave]
+    var hasVisitedASmallTwice: Bool
 }
 
-private struct Cave: Equatable {
+private struct Cave: Equatable, Hashable {
     let name: String
+    let isSmall: Bool
     
-    var isSmall: Bool {
-        name.lowercased() == name
+    init(name: String) {
+        self.name = name
+        self.isSmall = name.lowercased() == name
     }
 }
 
-private func splunk(currentCavePath: [Cave], caveLinks: [CaveLink]) -> [[Cave]] {
-    guard let currentCave = currentCavePath.last else { return [[Cave]]() }
+private func splunkA(currentCavePath: CavePath, caveDict: [Cave: Set<Cave>]) -> [CavePath] {
+    guard let currentCave = currentCavePath.path.last else { return [CavePath]() }
     
-    let destinationCaves = caveLinks.filter({ $0.origin == currentCave }).map({ $0.destination })
-    let originCaves = caveLinks.filter({ $0.destination == currentCave }).map({ $0.origin })
-    let nextCaves = destinationCaves + originCaves
+    var allNewSplunks = [CavePath]()
     
-    var allNewSplunks = [[Cave]]()
-    
-    for nextCave in nextCaves {
-        if nextCave.isSmall && currentCavePath.contains(nextCave) {
-            // we have already been to this small cave, not a valid path
+    for linkedCave in caveDict[currentCave] ?? [] {
+        if linkedCave.isSmall && currentCavePath.path.contains(linkedCave) {
+            // already traversed this small cave, skip
         } else {
             var newCavePath = currentCavePath
-            newCavePath.append(nextCave)
+            newCavePath.path.append(linkedCave)
             
-            if nextCave.name == "end" {
+            if linkedCave.name == "end" {
                 allNewSplunks.append(newCavePath)
             } else {
-                allNewSplunks.append(contentsOf: splunk(currentCavePath: newCavePath, caveLinks: caveLinks))
+                allNewSplunks.append(contentsOf: splunkA(currentCavePath: newCavePath, caveDict: caveDict))
             }
         }
     }
@@ -54,18 +60,59 @@ private func splunk(currentCavePath: [Cave], caveLinks: [CaveLink]) -> [[Cave]] 
     return allNewSplunks
 }
 
-private func parseCaveLinks(fileName: String) -> [CaveLink] {
-    var caveLinks = [CaveLink]()
+private func splunkB(currentCavePath: CavePath, caveDict: [Cave: Set<Cave>]) -> [CavePath] {
+    guard let currentCave = currentCavePath.path.last else { return [CavePath]() }
+    
+    var allNewSplunks = [CavePath]()
+    
+    for linkedCave in caveDict[currentCave] ?? [] {
+        if linkedCave.name == "start" { continue } // never visit start again
+        
+        if linkedCave.isSmall && currentCavePath.path.contains(linkedCave) {
+            if currentCavePath.hasVisitedASmallTwice {
+                // do nothing
+            } else {
+                var newCavePath = currentCavePath
+                newCavePath.path.append(linkedCave)
+                newCavePath.hasVisitedASmallTwice = true
+                
+                if linkedCave.name == "end" {
+                    allNewSplunks.append(newCavePath)
+                } else {
+                    allNewSplunks.append(contentsOf: splunkB(currentCavePath: newCavePath, caveDict: caveDict))
+                }
+            }
+        } else {
+            var newCavePath = currentCavePath
+            newCavePath.path.append(linkedCave)
+            
+            if linkedCave.name == "end" {
+                allNewSplunks.append(newCavePath)
+            } else {
+                allNewSplunks.append(contentsOf: splunkB(currentCavePath: newCavePath, caveDict: caveDict))
+            }
+        }
+    }
+    
+    return allNewSplunks
+}
+
+private func parseCaveDict(fileName: String) -> [Cave: Set<Cave>] {
+    var caveDict = [Cave: Set<Cave>]()
     
     let stringEntries = getFileContents(fileName: fileName).components(separatedBy: .newlines)
     
     for stringEntry in stringEntries {
         if stringEntry.isEmpty { continue }
         
-        let caves = stringEntry.components(separatedBy: "-")
-        caveLinks.append(CaveLink(origin: Cave(name: caves[0]),
-                                  destination: Cave(name: caves[1])))
+        let caveStrings = stringEntry.components(separatedBy: "-")
+        
+        let originCave = Cave(name: caveStrings[0])
+        let destinationCave = Cave(name: caveStrings[1])
+        
+        caveDict[originCave, default: []].insert(destinationCave)
+        caveDict[destinationCave, default: []].insert(originCave)
     }
     
-    return caveLinks
+    return caveDict
 }
