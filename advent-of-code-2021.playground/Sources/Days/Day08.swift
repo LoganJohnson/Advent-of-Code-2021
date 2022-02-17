@@ -6,13 +6,13 @@ private struct SevenSegmentDetail {
 }
 
 // https://adventofcode.com/2021/day/8
-internal func performDay8A(fileName: String) -> Int {
-    return solveDay8A(sevenSegmentDetails: parseSevenSegmentDetails(fileName: fileName))
+internal func performDay8A(file: String) -> Int {
+    return solveDay8A(sevenSegmentDetails: parseSevenSegmentDetails(file: file))
 }
 
 // https://adventofcode.com/2021/day/8#part2
-internal func performDay8B(fileName: String) -> Int {
-    return solveDay8B(sevenSegmentDetails: parseSevenSegmentDetails(fileName: fileName))
+internal func performDay8B(file: String) -> Int {
+    return solveDay8B(sevenSegmentDetails: parseSevenSegmentDetails(file: file))
 }
 
 private func solveDay8A(sevenSegmentDetails: [SevenSegmentDetail]) -> Int {
@@ -123,10 +123,10 @@ private func getRealNumberValue(outputValues: [Set<Character>], deductionDiction
     return Int(stringNum) ?? 0
 }
 
-private func parseSevenSegmentDetails(fileName: String) -> [SevenSegmentDetail] {
+private func parseSevenSegmentDetails(file: String) -> [SevenSegmentDetail] {
     var sevenSegmentDetails = [SevenSegmentDetail]()
     
-    let stringEntries = getFileContents(fileName: fileName).components(separatedBy: .newlines)
+    let stringEntries = getFileContents(file: file).components(separatedBy: .newlines)
     
     for stringEntry in stringEntries {
         if stringEntry.isEmpty { continue }

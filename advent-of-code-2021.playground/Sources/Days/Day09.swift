@@ -14,13 +14,13 @@ private struct Coordinate: Hashable {
 }
 
 // https://adventofcode.com/2021/day/9
-internal func performDay9A(fileName: String) -> Int {
-    solveDay9A(intGrid: parseIntGrid(fileName: fileName))
+internal func performDay9A(file: String) -> Int {
+    solveDay9A(intGrid: parseIntGrid(file: file))
 }
 
 // https://adventofcode.com/2021/day/9#part2
-internal func performDay9B(fileName: String) -> Int {
-    solveDay9B(intGrid: parseIntGrid(fileName: fileName))
+internal func performDay9B(file: String) -> Int {
+    solveDay9B(intGrid: parseIntGrid(file: file))
 }
 
 // find low points, answer is sum of all low points, each with an additional + 1

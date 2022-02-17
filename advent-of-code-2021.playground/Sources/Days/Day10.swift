@@ -42,13 +42,13 @@ private enum SyntaxSymbolOpenings: String {
 }
 
 // https://adventofcode.com/2021/day/10
-internal func performDay10A(fileName: String) -> Int {
-    solveDay10A(lineInputs: parseInputToStrings(fileName: fileName))
+internal func performDay10A(file: String) -> Int {
+    solveDay10A(lineInputs: parseInputToStrings(file: file))
 }
 
 // https://adventofcode.com/2021/day/10#part2
-internal func performDay10B(fileName: String) -> Int {
-    solveDay10B(lineInputs: parseInputToStrings(fileName: fileName))
+internal func performDay10B(file: String) -> Int {
+    solveDay10B(lineInputs: parseInputToStrings(file: file))
 }
 
 private func solveDay10A(lineInputs: [String]) -> Int {

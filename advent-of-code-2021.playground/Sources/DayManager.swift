@@ -17,36 +17,36 @@ public enum Day: String, CaseIterable {
     
     var getAnswer: Int {
         switch self {
-            case .day1A: return performDay1A(fileName: fileNameForDay)
-            case .day1B: return performDay1B(fileName: fileNameForDay)
-            case .day2A: return performDay2A(fileName: fileNameForDay)
-            case .day2B: return performDay2B(fileName: fileNameForDay)
-            case .day3A: return performDay3A(fileName: fileNameForDay)
-            case .day3B: return performDay3B(fileName: fileNameForDay)
-            case .day4A: return performDay4A(fileName: fileNameForDay)
-            case .day4B: return performDay4B(fileName: fileNameForDay)
-            case .day5A: return performDay5A(fileName: fileNameForDay)
-            case .day5B: return performDay5B(fileName: fileNameForDay)
-            case .day6A: return performDay6A(fileName: fileNameForDay)
-            case .day6B: return performDay6B(fileName: fileNameForDay)
-            case .day7A: return performDay7A(fileName: fileNameForDay)
-            case .day7B: return performDay7B(fileName: fileNameForDay)
-            case .day8A: return performDay8A(fileName: fileNameForDay)
-            case .day8B: return performDay8B(fileName: fileNameForDay)
-            case .day9A: return performDay9A(fileName: fileNameForDay)
-            case .day9B: return performDay9B(fileName: fileNameForDay)
-            case .day10A: return performDay10A(fileName: fileNameForDay)
-            case .day10B: return performDay10B(fileName: fileNameForDay)
-            case .day11A: return performDay11A(fileName: fileNameForDay)
-            case .day11B: return performDay11B(fileName: fileNameForDay)
-            case .day12A: return performDay12A(fileName: fileNameForDay)
-            case .day12B: return performDay12B(fileName: fileNameForDay)
-            case .day13A: return performDay13A(fileName: fileNameForDay)
-            case .day13B: return performDay13B(fileName: fileNameForDay)
+            case .day1A: return performDay1A(file: fileForDay)
+            case .day1B: return performDay1B(file: fileForDay)
+            case .day2A: return performDay2A(file: fileForDay)
+            case .day2B: return performDay2B(file: fileForDay)
+            case .day3A: return performDay3A(file: fileForDay)
+            case .day3B: return performDay3B(file: fileForDay)
+            case .day4A: return performDay4A(file: fileForDay)
+            case .day4B: return performDay4B(file: fileForDay)
+            case .day5A: return performDay5A(file: fileForDay)
+            case .day5B: return performDay5B(file: fileForDay)
+            case .day6A: return performDay6A(file: fileForDay)
+            case .day6B: return performDay6B(file: fileForDay)
+            case .day7A: return performDay7A(file: fileForDay)
+            case .day7B: return performDay7B(file: fileForDay)
+            case .day8A: return performDay8A(file: fileForDay)
+            case .day8B: return performDay8B(file: fileForDay)
+            case .day9A: return performDay9A(file: fileForDay)
+            case .day9B: return performDay9B(file: fileForDay)
+            case .day10A: return performDay10A(file: fileForDay)
+            case .day10B: return performDay10B(file: fileForDay)
+            case .day11A: return performDay11A(file: fileForDay)
+            case .day11B: return performDay11B(file: fileForDay)
+            case .day12A: return performDay12A(file: fileForDay)
+            case .day12B: return performDay12B(file: fileForDay)
+            case .day13A: return performDay13A(file: fileForDay)
+            case .day13B: return performDay13B(file: fileForDay)
         }
     }
     
-    var fileNameForDay: String {
+    var fileForDay: String {
         switch self {
             case .day1A, .day1B: return "day-1"
             case .day2A, .day2B: return "day-2"

@@ -1,13 +1,13 @@
 import Foundation
 
 // https://adventofcode.com/2021/day/3
-internal func performDay3A(fileName: String) -> Int {
-    return solveDay3A(inputs: parseInputToStrings(fileName: fileName))
+internal func performDay3A(file: String) -> Int {
+    return solveDay3A(inputs: parseInputToStrings(file: file))
 }
 
 // https://adventofcode.com/2021/day/3#part2
-internal func performDay3B(fileName: String) -> Int {
-    return solveDay3B(inputs: parseInputToStrings(fileName: fileName))
+internal func performDay3B(file: String) -> Int {
+    return solveDay3B(inputs: parseInputToStrings(file: file))
 }
 
 private func solveDay3A(inputs: [String]) -> Int {

@@ -1,13 +1,13 @@
 import Foundation
 
 // https://adventofcode.com/2021/day/11
-internal func performDay11A(fileName: String) -> Int {
-    solveDay11A(intGrid: parseIntGrid(fileName: fileName))
+internal func performDay11A(file: String) -> Int {
+    solveDay11A(intGrid: parseIntGrid(file: file))
 }
 
 // https://adventofcode.com/2021/day/11#part2
-internal func performDay11B(fileName: String) -> Int {
-    solveDay11B(intGrid: parseIntGrid(fileName: fileName))
+internal func performDay11B(file: String) -> Int {
+    solveDay11B(intGrid: parseIntGrid(file: file))
 }
 
 // find flash count over 100 steps of incrementing values and "flashing" once a position reaches a high enough energy value

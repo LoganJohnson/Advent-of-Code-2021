@@ -1,13 +1,13 @@
 import Foundation
 
 // https://adventofcode.com/2021/day/1
-internal func performDay1A(fileName: String) -> Int {
-    return solveDay1A(inputs: parseInputToInts(fileName: fileName))
+internal func performDay1A(file: String) -> Int {
+    return solveDay1A(inputs: parseInputToInts(file: file))
 }
 
 // https://adventofcode.com/2021/day/1#part2
-internal func performDay1B(fileName: String) -> Int {
-    return solveDay1B(inputs: parseInputToInts(fileName: fileName))
+internal func performDay1B(file: String) -> Int {
+    return solveDay1B(inputs: parseInputToInts(file: file))
 }
 
 // Simple sum of values that are larger than previous value

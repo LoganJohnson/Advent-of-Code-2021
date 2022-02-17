@@ -1,11 +1,11 @@
 import Foundation
 
-internal func performDay12A(fileName: String) -> Int {
-    solveDay12A(caveDict: parseCaveDict(fileName: fileName))
+internal func performDay12A(file: String) -> Int {
+    solveDay12A(caveDict: parseCaveDict(file: file))
 }
 
-internal func performDay12B(fileName: String) -> Int {
-    solveDay12B(caveDict: parseCaveDict(fileName: fileName))
+internal func performDay12B(file: String) -> Int {
+    solveDay12B(caveDict: parseCaveDict(file: file))
 }
 
 private func solveDay12A(caveDict: [Cave: Set<Cave>]) -> Int {
@@ -97,10 +97,10 @@ private func splunkB(currentCavePath: CavePath, caveDict: [Cave: Set<Cave>]) -> 
     return allNewSplunks
 }
 
-private func parseCaveDict(fileName: String) -> [Cave: Set<Cave>] {
+private func parseCaveDict(file: String) -> [Cave: Set<Cave>] {
     var caveDict = [Cave: Set<Cave>]()
     
-    let stringEntries = getFileContents(fileName: fileName).components(separatedBy: .newlines)
+    let stringEntries = getFileContents(file: file).components(separatedBy: .newlines)
     
     for stringEntry in stringEntries {
         if stringEntry.isEmpty { continue }

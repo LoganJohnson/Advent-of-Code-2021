@@ -1,15 +1,15 @@
 import Foundation
 
 // https://adventofcode.com/2021/day/4
-internal func performDay4A(fileName: String) -> Int {
-    let (callNumbers, boards) = parseBingoInput(fileName: fileName)
+internal func performDay4A(file: String) -> Int {
+    let (callNumbers, boards) = parseBingoInput(file: file)
     
     return getDay4A(callNumbers: callNumbers, boards: boards)
 }
 
 // https://adventofcode.com/2021/day/4#part2
-internal func performDay4B(fileName: String) -> Int {
-    let (callNumbers, boards) = parseBingoInput(fileName: fileName)
+internal func performDay4B(file: String) -> Int {
+    let (callNumbers, boards) = parseBingoInput(file: file)
     
     return getDay4B(callNumbers: callNumbers, boards: boards)
 }
@@ -34,8 +34,8 @@ private func getDay4B(callNumbers: [Int], boards: [[Set<Int>]]) -> Int {
     return winningNumber * uncalledNumberSum
 }
 
-private func parseBingoInput(fileName: String) -> ([Int], [[Set<Int>]])  {
-    let contentsOfFile = getFileContents(fileName: fileName)
+private func parseBingoInput(file: String) -> ([Int], [[Set<Int>]])  {
+    let contentsOfFile = getFileContents(file: file)
     
     var callNumbers = [Int]()
     var boardRows = [[Set<Int>]]()

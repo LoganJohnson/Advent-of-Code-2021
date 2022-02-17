@@ -1,8 +1,8 @@
 import Foundation
 
-internal func getFileContents(fileName: String) -> String {
-    guard let bundleURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
-        fatalError("failed to load bundleURL from fileName: \(fileName)")
+internal func getFileContents(file: String) -> String {
+    guard let bundleURL = Bundle.main.url(forResource: file, withExtension: "txt") else {
+        fatalError("failed to load bundleURL from file: \(file)")
     }
     
     guard let contentsOfFile = try? String(contentsOfFile: bundleURL.path, encoding: .utf8) else {
@@ -13,8 +13,8 @@ internal func getFileContents(fileName: String) -> String {
 }
 
 // Assumes input is a single string on each line
-internal func parseInputToStrings(fileName: String) -> [String] {
-    let contentsOfFile = getFileContents(fileName: fileName)
+internal func parseInputToStrings(file: String) -> [String] {
+    let contentsOfFile = getFileContents(file: file)
     
     var stringInputs = [String]()
     
@@ -28,8 +28,8 @@ internal func parseInputToStrings(fileName: String) -> [String] {
 }
 
 // Assumes input is a single int on each line
-func parseInputToInts(fileName: String) -> [Int] {
-    let contentsOfFile = getFileContents(fileName: fileName)
+func parseInputToInts(file: String) -> [Int] {
+    let contentsOfFile = getFileContents(file: file)
     
     var inputInts = [Int]()
     
@@ -41,8 +41,8 @@ func parseInputToInts(fileName: String) -> [Int] {
     return inputInts
 }
 
-func parseInputToStringAndInt(fileName: String) -> [(String, Int)] {
-    let contentsOfFile = getFileContents(fileName: fileName)
+func parseInputToStringAndInt(file: String) -> [(String, Int)] {
+    let contentsOfFile = getFileContents(file: file)
     
     var inputs = [(String, Int)]()
     
@@ -62,10 +62,10 @@ func parseInputToStringAndInt(fileName: String) -> [(String, Int)] {
     return inputs
 }
 
-func parseInputCommaSeparatedInts(fileName: String) -> [Int] {
+func parseInputCommaSeparatedInts(file: String) -> [Int] {
     var fishBirthCountdowns = [Int]()
     
-    let stringEntries = getFileContents(fileName: fileName).components(separatedBy: ",")
+    let stringEntries = getFileContents(file: file).components(separatedBy: ",")
     
     for stringEntry in stringEntries {
         guard let intVal = Int(stringEntry.trimmingCharacters(in: .whitespacesAndNewlines)) else {
@@ -77,10 +77,10 @@ func parseInputCommaSeparatedInts(fileName: String) -> [Int] {
     return fishBirthCountdowns
 }
 
-func parseIntGrid(fileName: String) -> [[Int]] {
+func parseIntGrid(file: String) -> [[Int]] {
     var intGrid = [[Int]]()
     
-    let stringEntries = getFileContents(fileName: fileName).components(separatedBy: .newlines)
+    let stringEntries = getFileContents(file: file).components(separatedBy: .newlines)
     
     for stringEntry in stringEntries {
         if stringEntry.isEmpty { continue }

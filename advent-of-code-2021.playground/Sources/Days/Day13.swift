@@ -1,13 +1,13 @@
 import Foundation
 
-internal func performDay13A(fileName: String) -> Int {
-    let (coordiantes, foldInstructions) = parseCoordiantesAndFoldInstructions(fileName: fileName)
+internal func performDay13A(file: String) -> Int {
+    let (coordiantes, foldInstructions) = parseCoordiantesAndFoldInstructions(file: file)
     
     return solveDay13A(coordinates: coordiantes, foldInstructions: foldInstructions)
 }
 
-internal func performDay13B(fileName: String) -> Int {
-    let (coordiantes, foldInstructions) = parseCoordiantesAndFoldInstructions(fileName: fileName)
+internal func performDay13B(file: String) -> Int {
+    let (coordiantes, foldInstructions) = parseCoordiantesAndFoldInstructions(file: file)
     
     return solveDay13B(coordinates: coordiantes, foldInstructions: foldInstructions)
 }
@@ -89,9 +89,9 @@ private func processFold(coordinates: [Coordinate], foldInstruction: FoldInstruc
     return postFoldCoordiantes
 }
 
-private func parseCoordiantesAndFoldInstructions(fileName: String) -> ([Coordinate], [FoldInstruction]) {
+private func parseCoordiantesAndFoldInstructions(file: String) -> ([Coordinate], [FoldInstruction]) {
     // input "sections" are separated by a blank line
-    let inputSections = getFileContents(fileName: fileName).components(separatedBy: "\n\n")
+    let inputSections = getFileContents(file: file).components(separatedBy: "\n\n")
     
     guard inputSections.count == 2 else {
         fatalError("\(#function) inputSections should have count of 2, instead got: \(inputSections.count)")

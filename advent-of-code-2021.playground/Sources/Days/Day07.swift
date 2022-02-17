@@ -1,13 +1,13 @@
 import Foundation
 
 // https://adventofcode.com/2021/day/7
-internal func performDay7A(fileName: String) -> Int {
-    return solveDay7A(positions: parseInputCommaSeparatedInts(fileName: fileName))
+internal func performDay7A(file: String) -> Int {
+    return solveDay7A(positions: parseInputCommaSeparatedInts(file: file))
 }
 
 // https://adventofcode.com/2021/day/7#part2
-internal func performDay7B(fileName: String) -> Int {
-    return solveDay7B(positions: parseInputCommaSeparatedInts(fileName: fileName))
+internal func performDay7B(file: String) -> Int {
+    return solveDay7B(positions: parseInputCommaSeparatedInts(file: file))
 }
 
 private func solveDay7A(positions: [Int]) -> Int {

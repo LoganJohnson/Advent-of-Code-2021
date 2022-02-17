@@ -5,13 +5,13 @@ private struct VentLineDetail {
 }
 
 // https://adventofcode.com/2021/day/5
-internal func performDay5A(fileName: String) -> Int {
-    solveDay5A(ventLineDetails: parseVentDetails(fileName: fileName))
+internal func performDay5A(file: String) -> Int {
+    solveDay5A(ventLineDetails: parseVentDetails(file: file))
 }
 
 // https://adventofcode.com/2021/day/5#part2
-internal func performDay5B(fileName: String) -> Int {
-    solveDay5B(ventLineDetails: parseVentDetails(fileName: fileName))
+internal func performDay5B(file: String) -> Int {
+    solveDay5B(ventLineDetails: parseVentDetails(file: file))
 }
 
 private func solveDay5A(ventLineDetails: [VentLineDetail]) -> Int {
@@ -65,10 +65,10 @@ private func getHeavyVentCount(ventLineDetails: [VentLineDetail], countDiagonals
     return ventDicitonary.filter({ $0.value > 1 }).count
 }
 
-private func parseVentDetails(fileName: String) -> [VentLineDetail] {
+private func parseVentDetails(file: String) -> [VentLineDetail] {
     var ventLineDetails = [VentLineDetail]()
     
-    let stringEntries = getFileContents(fileName: fileName).components(separatedBy: .newlines)
+    let stringEntries = getFileContents(file: file).components(separatedBy: .newlines)
     
     for stringEntry in stringEntries {
         if stringEntry.isEmpty { continue }
