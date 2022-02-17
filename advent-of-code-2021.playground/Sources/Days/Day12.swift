@@ -1,11 +1,11 @@
 import Foundation
 
 internal func performDay12A(fileName: String) -> Int {
-    return solveDay12A(caveDict: parseCaveDict(fileName: fileName))
+    solveDay12A(caveDict: parseCaveDict(fileName: fileName))
 }
 
 internal func performDay12B(fileName: String) -> Int {
-    return solveDay12B(caveDict: parseCaveDict(fileName: fileName))
+    solveDay12B(caveDict: parseCaveDict(fileName: fileName))
 }
 
 private func solveDay12A(caveDict: [Cave: Set<Cave>]) -> Int {

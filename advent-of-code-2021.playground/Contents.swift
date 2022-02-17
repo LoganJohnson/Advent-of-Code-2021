@@ -1,5 +1,5 @@
 // Advent of Code 2021
 // Logan Johnson
 
-executeSingleDay(day: .day12B)
+executeSingleDay(day: .day13B)
 //executeAllDays()
