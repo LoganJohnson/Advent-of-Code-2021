@@ -1,9 +1,11 @@
 import Foundation
 
+// https://adventofcode.com/2021/day/12
 internal func performDay12A(file: String) -> Int {
     solveDay12A(caveDict: parseCaveDict(file: file))
 }
 
+// https://adventofcode.com/2021/day/12#part2
 internal func performDay12B(file: String) -> Int {
     solveDay12B(caveDict: parseCaveDict(file: file))
 }

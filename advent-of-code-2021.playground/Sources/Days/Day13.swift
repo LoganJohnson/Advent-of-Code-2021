@@ -1,11 +1,13 @@
 import Foundation
 
+// https://adventofcode.com/2021/day/13
 internal func performDay13A(file: String) -> Int {
     let (coordiantes, foldInstructions) = parseCoordiantesAndFoldInstructions(file: file)
     
     return solveDay13A(coordinates: coordiantes, foldInstructions: foldInstructions)
 }
 
+// https://adventofcode.com/2021/day/13#part2
 internal func performDay13B(file: String) -> Int {
     let (coordiantes, foldInstructions) = parseCoordiantesAndFoldInstructions(file: file)
     
